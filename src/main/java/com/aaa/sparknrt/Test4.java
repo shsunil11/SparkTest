@@ -59,7 +59,7 @@ public class Test4 {
 
 		eventStr.foreachRDD(new Function<JavaRDD<String>, Void>() {
 			public Void call(JavaRDD<String> rdd) {
-				rdd.saveAsTextFile("/user/cloudera/spk_"
+				rdd.saveAsTextFile("/user/cloudera/spk/nrt_"
 						+ System.currentTimeMillis());
 				int i = 0;
 				for (String event : rdd.collect()) {
@@ -93,14 +93,14 @@ public class Test4 {
 									String row) throws Exception {
 
 								Put put = new Put(Bytes.toBytes(row
-										.split("\\,")[0]));
+										.split("\\|")[0]));
 								put.addColumn(Bytes.toBytes("cf1"),
 										Bytes.toBytes("col1"),
-										Bytes.toBytes(row.split("\\,")[1]));
+										Bytes.toBytes(row.split("\\|")[1]));
 
 								put.addColumn(Bytes.toBytes("cf1"),
 										Bytes.toBytes("col2"),
-										Bytes.toBytes(row.split("\\,")[1]));
+										Bytes.toBytes(row.split("\\|")[2]));
 
 								
 								return new Tuple2<ImmutableBytesWritable, Put>(
